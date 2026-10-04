@@ -21,19 +21,17 @@ describe('Sidebar', () => {
     user: { permissions: allPermissions },
   } as any)
 
-  const setup = (location: string, permissions = true) => {
+  const setup = (location: string, permissions = true, sidebarCollapsed = false) => {
     history = createMemoryHistory()
     history.push(location)
     return render(
       <Router history={history}>
         <Provider
           store={
-            permissions
-              ? store
-              : mockStore({
-                  components: { sidebarCollapsed: false },
-                  user: { permissions: [] },
-                } as any)
+            mockStore({
+              components: { sidebarCollapsed },
+              user: { permissions: permissions ? allPermissions : [] },
+            } as any)
           }
         >
           <Sidebar />
@@ -526,6 +524,22 @@ describe('Sidebar', () => {
       userEvent.click(screen.getByText(/medications.requests.label/i))
 
       expect(history.location.pathname).toEqual('/medications')
+    })
+  })
+
+  describe('collapsed sidebar', () => {
+    it('should not render link labels when sidebar is collapsed', () => {
+      setup('/', true, true)
+
+      expect(screen.queryByText(/dashboard.label/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/patients.label/i)).not.toBeInTheDocument()
+    })
+
+    it('should render collapsed sidebar with width 56px', () => {
+      const { container } = setup('/', true, true)
+      const nav = container.querySelector('nav')
+
+      expect(nav).toHaveStyle({ width: '56px' })
     })
   })
 })

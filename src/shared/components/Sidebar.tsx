@@ -25,10 +25,12 @@ const Sidebar = () => {
 
   const listItemStyle: CSSProperties = {
     cursor: 'pointer',
+    whiteSpace: 'nowrap',
+    padding: sidebarCollapsed ? '0.75rem 0.5rem' : undefined,
   }
 
   const expandibleArrow: CSSProperties = {
-    marginRight: '20px',
+    marginRight: sidebarCollapsed ? '6px' : '20px',
   }
 
   const iconMargin: CSSProperties = {
@@ -66,8 +68,9 @@ const Sidebar = () => {
     borderBottomWidth: 0,
     borderTopWidth: 0,
     color: 'black',
-    padding: '.6rem 1.25rem',
+    padding: sidebarCollapsed ? '.6rem 0.5rem' : '.6rem 1.25rem',
     backgroundColor: 'rgba(245,245,245,1)',
+    whiteSpace: 'nowrap',
   }
 
   const listSubItemStyleNew: CSSProperties = {
@@ -76,8 +79,9 @@ const Sidebar = () => {
     borderBottomWidth: 0,
     borderTopWidth: 0,
     color: 'black',
-    padding: '.6rem 1.25rem',
+    padding: sidebarCollapsed ? '.6rem 0.5rem' : '.6rem 1.25rem',
     backgroundColor: 'rgba(245,245,245,1)',
+    whiteSpace: 'nowrap',
   }
 
   const getDashboardLink = () => (
